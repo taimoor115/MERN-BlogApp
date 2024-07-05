@@ -20,11 +20,10 @@ const blogSchema = new Schema(
     caption: {
       type: String,
     },
-    author: {
-      type: String,
-    },
+
     publishDate: {
       type: Date,
+      default: Date.now,
     },
 
     category: {
