@@ -10,10 +10,11 @@ import { generateTokenAndSetCookie } from "./lib/utils/genrateToken.js";
 import bcrypt from "bcrypt";
 import cookieParser from "cookie-parser";
 const app = express();
-
+import cors from "cors";
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors());
 main()
   .then(() => {
     console.log("DB is connected");
