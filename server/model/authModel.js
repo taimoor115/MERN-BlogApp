@@ -2,22 +2,25 @@ import mongoose, { Schema } from "mongoose";
 
 import bcrypt from "bcrypt";
 
-const userSchema = new Schema({
-  username: {
-    type: String,
+const authSchema = new Schema(
+  {
+    username: {
+      type: String,
+    },
+    email: {
+      type: String,
+      unique: true,
+      lowercase: true,
+      trim: true,
+    },
+    password: {
+      type: String,
+    },
   },
-  email: {
-    type: String,
-    unique: true,
-    lowercase: true,
-    trim: true,
-  },
-  password: {
-    type: String,
-  },
-});
+  { timestamps: true }
+);
 
-userSchema.pre("save", async function (next) {
+authSchema.pre("save", async function (next) {
   try {
     //     // Check if the password is modified
     // if (!this.isModified("password")) {
@@ -32,6 +35,6 @@ userSchema.pre("save", async function (next) {
   }
 });
 
-const User = mongoose.model("User", userSchema);
+const Auth = mongoose.model("Auth", authSchema);
 
-export default User;
+export default Auth;

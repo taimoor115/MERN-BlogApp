@@ -3,9 +3,10 @@ import { MongoURL, PORT } from "./config.js";
 import mongoose from "mongoose";
 import Blog from "./model/blogModel.js";
 import ExpressError from "./ExpressError.js";
-
 import { validateBlog, validateUser } from "./middleware/middleware.js";
-import User from "./model/userModel.js";
+import Auth from "./model/authModel.js";
+import "dotenv/config";
+import jwt from "jsonwebtoken";
 
 const app = express();
 
@@ -117,15 +118,27 @@ app.delete("/blogs/:id", async (req, res) => {
 app.post("/signup", validateUser, async (req, res) => {
   try {
     const { email } = req.body;
-    const existingEmail = await User.findOne({ email });
+    const existingEmail = await Auth.findOne({ email });
     if (existingEmail) {
       return res.status(400).json({ error: "This email has already taken" });
     }
     const user = req.body;
-    const result = await User.create(user);
-    console.log(result);
+    const newUser = await Auth.create(user);
+    const token = jwt.sign(
+      {
+        userId: newUser._id,
+        email: newUser.email,
+        username: newUser.username,
+      },
+      process.env.JSON_WEB_TOKEN_SECRET_KEY,
+      { expiresIn: "7d" }
+    );
 
-    return res.status(201).json(user);
+    if (!token) {
+      res.status(400).json({ error: "Try again" });
+    }
+
+    return res.status(200).json(token);
   } catch (error) {
     console.log(error.message);
     return res.json({ error: error.message });
