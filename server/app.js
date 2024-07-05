@@ -4,7 +4,9 @@ import mongoose from "mongoose";
 import Blog from "./model/blogModel.js";
 import ExpressError from "./ExpressError.js";
 
-import validateBlog from "./middleware/middleware.js";
+import { validateBlog, validateUser } from "./middleware/middleware.js";
+import User from "./model/userModel.js";
+
 const app = express();
 
 // Middleware
@@ -104,6 +106,26 @@ app.delete("/blogs/:id", async (req, res) => {
       return res.status(400).json({ error: "No Blog Found" });
     }
     return res.status(200).json({ message: "Book deleted Successfull" });
+  } catch (error) {
+    console.log(error.message);
+    return res.json({ error: error.message });
+  }
+});
+
+// User
+
+app.post("/signup", validateUser, async (req, res) => {
+  try {
+    const { email } = req.body;
+    const existingEmail = await User.findOne({ email });
+    if (existingEmail) {
+      return res.status(400).json({ error: "This email has already taken" });
+    }
+    const user = req.body;
+    const result = await User.create(user);
+    console.log(result);
+
+    return res.status(201).json(user);
   } catch (error) {
     console.log(error.message);
     return res.json({ error: error.message });
