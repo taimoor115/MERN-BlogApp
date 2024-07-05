@@ -44,7 +44,19 @@ app.get("/blogs", async (req, res) => {
   }
 });
 
-app.get("/blogs/:id", async (req, res) => {});
+app.get("/blogs/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const blog = await Blog.findById(id);
+    if (!blog) {
+      return res.status(400).json({ error: "Blog not found" });
+    }
+    res.status(200).json(blog);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: error.message });
+  }
+});
 
 app.post("/blogs", validateBlog, async (req, res) => {
   console.log(req.body);
