@@ -9,14 +9,14 @@ import {
 } from "../controller/blogController.js";
 import { validateBlog } from "../middleware/middleware.js";
 
-router.get("/", getBlogs);
+router.route("/").get(getBlogs).post(validateBlog, createBlog);
 
-router.get("/:id", showBlog);
+router
+  .route("/:id")
+  .get(showBlog)
+  .put(validateBlog, updateBlog)
+  .delete(destroyBlog);
 
-router.post("/", validateBlog, createBlog);
-
-router.put("/:id", validateBlog, updateBlog);
-
-router.delete("/:id", destroyBlog);
+router;
 
 export default router;
