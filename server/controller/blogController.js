@@ -1,4 +1,5 @@
 import Blog from "../model/blogModel.js";
+import { validateBlog } from "../middleware/middleware.js";
 
 export const getBlogs = async (req, res) => {
   try {

@@ -1,4 +1,5 @@
 import express from "express";
+const router = express.Router();
 import {
   getBlogs,
   showBlog,
@@ -6,16 +7,16 @@ import {
   updateBlog,
   destroyBlog,
 } from "../controller/blogController.js";
-const router = express.Router();
+import { validateBlog } from "../middleware/middleware.js";
 
-router.get("/blogs", getBlogs);
+router.get("/", getBlogs);
 
-router.get("/blogs/:id", showBlog);
+router.get("/:id", showBlog);
 
-router.post("/blogs", validateBlog, createBlog);
+router.post("/", validateBlog, createBlog);
 
-router.put("/blogs/:id", validateBlog, updateBlog);
+router.put("/:id", validateBlog, updateBlog);
 
-router.delete("/blogs/:id", destroyBlog);
+router.delete("/:id", destroyBlog);
 
 export default router;
