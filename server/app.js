@@ -61,6 +61,42 @@ app.post("/blogs", async (req, res) => {
   }
 });
 
+app.put("/blogs/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const blog = req.body;
+
+    if (!blog.title) {
+      return res.status(400).json({ error: "Title is required" });
+    }
+    const result = await Blog.findByIdAndUpdate(id, blog, {
+      runValidators: true,
+      new: true,
+    });
+    if (!result) {
+      return res.status(404).json({ error: "Blog not found" });
+    }
+    return res.status(200).json(result);
+  } catch (error) {
+    console.log(error.message);
+    return res.json({ error: error.message });
+  }
+});
+
+app.delete("/blogs/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result = await Blog.findByIdAndDelete(id);
+    if (!result) {
+      return res.status(400).json({ error: "No Blog Found" });
+    }
+    return res.status(200).json({ message: "Book deleted Successfull" });
+  } catch (error) {
+    console.log(error.message);
+    return res.json({ error: error.message });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server working on port ${PORT}`);
 });
