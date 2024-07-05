@@ -2,6 +2,9 @@ import express from "express";
 import { MongoURL, PORT } from "./config.js";
 import mongoose from "mongoose";
 import Blog from "./model/blogModel.js";
+import ExpressError from "./ExpressError.js";
+
+import validateBlog from "./middleware/middleware.js";
 const app = express();
 
 // Middleware
@@ -41,34 +44,32 @@ app.get("/blogs", async (req, res) => {
   }
 });
 
-app.post("/blogs", async (req, res) => {
+app.get("/blogs/:id", async (req, res) => {});
+
+app.post("/blogs", validateBlog, async (req, res) => {
   console.log(req.body);
   try {
     const blogData = req.body;
 
-    if (!blogData.title) {
-      return res.status(400).json({ error: "Title is required" });
-    }
+    // if (!blogData.title) {
+    //   return res.status(400).json({ error: "Title is required" });
+    // }
     const blog = await Blog.create(blogData);
-
-    if (!blog) {
-      return res.status(500).json({ error: "Error in Saving" });
-    }
     return res.status(201).json(blog);
   } catch (error) {
     console.log(error.message);
-    return res.json({ error: error.message });
+    return res.status(500).json({ error: error.message });
   }
 });
 
-app.put("/blogs/:id", async (req, res) => {
+app.put("/blogs/:id", validateBlog, async (req, res) => {
   try {
     const { id } = req.params;
     const blog = req.body;
 
-    if (!blog.title) {
-      return res.status(400).json({ error: "Title is required" });
-    }
+    // if (!blog.title) {
+    //   return res.status(400).json({ error: "Title is required" });
+    // }
     const result = await Blog.findByIdAndUpdate(id, blog, {
       runValidators: true,
       new: true,
@@ -95,6 +96,15 @@ app.delete("/blogs/:id", async (req, res) => {
     console.log(error.message);
     return res.json({ error: error.message });
   }
+});
+
+app.all("*", (req, res, next) => {
+  next(new ExpressError("404", "Page not found"));
+});
+
+app.use((err, req, res, next) => {
+  const { status = 500, message = "Something went wrong" } = err;
+  res.status(status).json({ error: message });
 });
 
 app.listen(PORT, () => {
