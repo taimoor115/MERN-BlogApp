@@ -9,7 +9,7 @@ export const getBlogs = async (req, res) => {
         error: "No blogs found",
       });
     }
-    return res.json({
+    return res.status(200).json({
       data: blogs,
       count: blogs.length,
     });
@@ -36,6 +36,12 @@ export const showBlog = async (req, res) => {
 export const createBlog = async (req, res) => {
   try {
     const blogData = req.body;
+
+    if (!req.user) {
+      return res
+        .status(401)
+        .json({ error: "You must be logged in to create a blog..." });
+    }
     const blog = await Blog.create(blogData);
     return res.status(201).json(blog);
   } catch (error) {

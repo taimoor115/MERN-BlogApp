@@ -1,6 +1,6 @@
 import express from "express";
-import { login, logout, signup } from "../controller/authController.js";
-import { validateUser } from "../middleware/middleware.js";
+import { getMe, login, logout, signup } from "../controller/authController.js";
+import { protectedRoute, validateUser } from "../middleware/middleware.js";
 const router = express.Router();
 
 router.post("/signup", validateUser, signup);
@@ -8,5 +8,7 @@ router.post("/signup", validateUser, signup);
 router.post("/login", login);
 
 router.post("/logout", logout);
+
+router.get("/me", protectedRoute, getMe);
 
 export default router;

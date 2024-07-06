@@ -9,13 +9,13 @@ import {
 } from "../controller/blogController.js";
 import { protectedRoute, validateBlog } from "../middleware/middleware.js";
 
-router.route("/").get(protectedRoute, getBlogs).post(validateBlog, createBlog);
+router.route("/").get(getBlogs).post(protectedRoute, validateBlog, createBlog);
 
 router
   .route("/:id")
   .get(showBlog)
-  .put(validateBlog, updateBlog)
-  .delete(destroyBlog);
+  .put(protectedRoute, validateBlog, updateBlog)
+  .delete(protectedRoute, destroyBlog);
 
 router;
 
