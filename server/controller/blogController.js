@@ -61,10 +61,18 @@ export const updateBlog = async (req, res) => {
   try {
     const { id } = req.params;
     const blog = req.body;
+
+    if (!req.user) {
+      return res
+        .status(401)
+        .json({ error: "You must be logged in to create a blog..." });
+    }
+
     const result = await Blog.findByIdAndUpdate(id, blog, {
       runValidators: true,
       new: true,
     });
+
     if (!result) {
       return res.status(404).json({ error: "Blog not found" });
     }

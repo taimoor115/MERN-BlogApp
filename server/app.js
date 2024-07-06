@@ -6,8 +6,9 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import blogRoutes from "./routes/blogRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
+import "dotenv/config";
+import { v2 as cloudinary } from "cloudinary";
 
-dotenv.config();
 const app = express();
 
 cloudinary.config({
