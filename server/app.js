@@ -22,14 +22,8 @@ async function main() {
   await mongoose.connect(MongoURL);
 }
 
-app.get("/", (req, res) => {
-  res.send("Server working fine....");
-});
-
 app.use("/blogs", blogRoutes);
 app.use("/", authRoutes);
-
-// User
 
 app.all("*", (req, res, next) => {
   next(new ExpressError("404", "Page not found"));
