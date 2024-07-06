@@ -1,5 +1,5 @@
 import Blog from "../model/blogModel.js";
-
+import { v2 as cloudinary } from "cloudinary";
 export const getBlogs = async (req, res) => {
   try {
     const blogs = await Blog.find({});
@@ -36,13 +36,20 @@ export const showBlog = async (req, res) => {
 export const createBlog = async (req, res) => {
   try {
     const blogData = req.body;
-
     if (!req.user) {
       return res
         .status(401)
         .json({ error: "You must be logged in to create a blog..." });
     }
-    const blog = await Blog.create(blogData);
+
+    const userId = req.user._id.toString();
+
+    if (blogData.image) {
+      const uploadedResponse = await cloudinary.uploader.upload(blogData.image);
+      blogData.image = uploadedResponse.secure_url;
+    }
+
+    const blog = await Blog.create({ ...req.body, user: userId });
     return res.status(201).json(blog);
   } catch (error) {
     console.log(error.message);
