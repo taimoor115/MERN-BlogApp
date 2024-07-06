@@ -7,9 +7,9 @@ import {
   updateBlog,
   destroyBlog,
 } from "../controller/blogController.js";
-import { validateBlog } from "../middleware/middleware.js";
+import { protectedRoute, validateBlog } from "../middleware/middleware.js";
 
-router.route("/").get(getBlogs).post(validateBlog, createBlog);
+router.route("/").get(protectedRoute, getBlogs).post(validateBlog, createBlog);
 
 router
   .route("/:id")
