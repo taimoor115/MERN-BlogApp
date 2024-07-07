@@ -4,9 +4,11 @@ import { CgPassword } from "react-icons/cg";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/authContext/authContext";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { setIsLoggedIn } = useAuth();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -20,10 +22,12 @@ const Login = () => {
       })
       .then(() => {
         toast.success("Login Successfully...");
+        setIsLoggedIn(true);
         navigate("/home");
       })
       .catch((err) => {
         console.log(err.response);
+        setIsLoggedIn(false);
         toast.error(err.response.data.error);
       });
   };

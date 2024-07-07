@@ -1,25 +1,20 @@
-import axios from "axios";
-import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/authContext/authContext";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const { isLoggedIn, logout, setIsLoggedIn } = useAuth();
+
+  // console.log(isLoggedIn);
+  console.log(isLoggedIn);
+
   const handleLogout = async () => {
-    await axios
-      .post(
-        "http://localhost:3000/logout",
-        {},
-        {
-          withCredentials: true,
-        }
-      )
-      .then((res) => {
-        toast.success(res.data.message);
-        navigate("/home");
-      })
-      .catch((err) => {
-        console.log(err.response.data);
-      });
+    try {
+      await logout();
+      navigate("/home");
+    } catch (err) {
+      console.log(err);
+    }
   };
   const handleClick = () => {
     const details = document.querySelector("details[open]");
@@ -37,9 +32,9 @@ const Navbar = () => {
       </div>
 
       <div className="flex-none">
-        <button className="btn btn-ghost" onClick={handleLogout}>
+        {/* <button className="btn btn-ghost" onClick={handleLogout}>
           Logout
-        </button>
+        </button> */}
         <ul className="menu menu-horizontal px-1">
           <li>
             <details>
@@ -50,14 +45,22 @@ const Navbar = () => {
                     Home
                   </Link>
                 </li>
-                <li>
-                  <Link onClick={handleClick} to="/signup">
-                    Signup
-                  </Link>
-                </li>
-                <li onClick={handleClick}>
-                  <Link to="/login">Login</Link>
-                </li>
+                {isLoggedIn ? (
+                  <li>
+                    <button onClick={handleLogout}>Logout</button>
+                  </li>
+                ) : (
+                  <>
+                    <li>
+                      <Link onClick={handleClick} to="/signup">
+                        Signup
+                      </Link>
+                    </li>
+                    <li onClick={handleClick}>
+                      <Link to="/login">Login</Link>
+                    </li>
+                  </>
+                )}
               </ul>
             </details>
           </li>
