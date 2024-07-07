@@ -1,6 +1,26 @@
-import { Link } from "react-router-dom";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    await axios
+      .post(
+        "http://localhost:3000/logout",
+        {},
+        {
+          withCredentials: true,
+        }
+      )
+      .then((res) => {
+        toast.success(res.data.message);
+        navigate("/home");
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+      });
+  };
   const handleClick = () => {
     const details = document.querySelector("details[open]");
     if (details) {
@@ -15,7 +35,11 @@ const Navbar = () => {
           Blogify
         </a>
       </div>
+
       <div className="flex-none">
+        <button className="btn btn-ghost" onClick={handleLogout}>
+          Logout
+        </button>
         <ul className="menu menu-horizontal px-1">
           <li>
             <details>

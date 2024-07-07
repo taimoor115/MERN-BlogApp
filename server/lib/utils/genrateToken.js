@@ -9,11 +9,12 @@ export const generateTokenAndSetCookie = (userId, res) => {
     { expiresIn: "7d" }
   );
 
-  console.log(token);
-  res.cookie("jwt", token, {
+  console.log("Token", token);
+  res.cookie("token", token, {
     maxAge: 7 * 24 * 60 * 60 * 1000,
     httpOnly: true,
     sameSite: "strict",
-    secure: process.env.NODE_ENV !== "development",
+    secure: false,
+    // secure: process.env.NODE_ENV !== "development",
   });
 };

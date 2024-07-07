@@ -9,7 +9,10 @@ import {
 } from "../controller/blogController.js";
 import { protectedRoute, validateBlog } from "../middleware/middleware.js";
 
-router.route("/").get(getBlogs).post(protectedRoute, validateBlog, createBlog);
+router
+  .route("/")
+  .get(protectedRoute, getBlogs)
+  .post(protectedRoute, validateBlog, createBlog);
 
 router
   .route("/:id")

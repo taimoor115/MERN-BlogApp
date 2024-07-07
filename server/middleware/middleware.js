@@ -1,6 +1,5 @@
 import ExpressError from "../ExpressError.js";
 import User from "../model/userModel.js";
-
 import { blogValidator, userValidator } from "../schemaValidation.js";
 import jwt from "jsonwebtoken";
 export function validateBlog(req, res, next) {
@@ -39,7 +38,7 @@ export const protectedRoute = async (req, res, next) => {
     // console.log(decoded.userId);
     const user = await User.findById(decoded.userId).select("-password");
     req.user = user;
-    console.log(user._id);
+    // console.log(user._id);
     // console.log("Hello", user);
     // console.log(req.user._id);
     next();
