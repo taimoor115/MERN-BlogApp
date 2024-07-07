@@ -1,9 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/authContext/authContext";
-
+import { GrDrawer } from "react-icons/gr";
+import { BiLogoBlogger } from "react-icons/bi";
 const Navbar = () => {
   const navigate = useNavigate();
-  const { isLoggedIn, logout, setIsLoggedIn } = useAuth();
+  const { isLoggedIn, logout } = useAuth();
 
   // console.log(isLoggedIn);
   console.log(isLoggedIn);
@@ -26,7 +27,8 @@ const Navbar = () => {
   return (
     <div className="navbar bg-primary text-white">
       <div className="flex-1">
-        <a className="cursor-pointer text-start font-extrabold text-xl">
+        <a className="cursor-pointer text-start font-extrabold text-xl flex justify-center items-center gap-1">
+          <BiLogoBlogger />
           Blogify
         </a>
       </div>
@@ -35,18 +37,20 @@ const Navbar = () => {
         {/* <button className="btn btn-ghost" onClick={handleLogout}>
           Logout
         </button> */}
-        <ul className="menu menu-horizontal px-1">
+        <ul className="menu menu-horizontal me-5 text-white font-bold">
           <li>
             <details>
-              <summary>Go to</summary>
-              <ul className="bg-base-100 rounded-t-none p-2">
-                <li>
-                  <Link onClick={handleClick} to="/home">
+              <summary>
+                <GrDrawer />
+              </summary>
+              <ul className="bg-primary rounded-t-none">
+                <li className="hover:opacity-70">
+                  <Link className="text-white" onClick={handleClick} to="/home">
                     Home
                   </Link>
                 </li>
                 {isLoggedIn ? (
-                  <li>
+                  <li className="hover:opacity-70">
                     <button onClick={handleLogout}>Logout</button>
                   </li>
                 ) : (

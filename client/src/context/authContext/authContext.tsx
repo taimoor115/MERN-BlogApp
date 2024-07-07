@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   useEffect(() => {
     checkAuthentication();
-  }, [isLoggedIn]);
+  }, []);
 
   const checkAuthentication = async () => {
     setIsLoading(true);
@@ -30,10 +30,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         setIsLoading(false);
         return;
       })
-      .catch((err) => {
+      .catch(() => {
         setIsLoggedIn(false);
         setIsLoading(false);
-        console.log(err);
       });
   };
 
