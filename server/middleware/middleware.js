@@ -47,3 +47,11 @@ export const protectedRoute = async (req, res, next) => {
     return res.status(500).json({ error: error.message });
   }
 };
+
+export const privateRoute = (req, res, next) => {
+  console.log(req.cookies.token);
+  if (req.cookies.token) {
+    return res.redirect("/blogs");
+  }
+  next();
+};

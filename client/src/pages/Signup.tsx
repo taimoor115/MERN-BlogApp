@@ -31,7 +31,7 @@ const Signup = () => {
 
   return (
     <form
-      className="form-control gap-5  flex items-center justify-center text-white mt-8"
+      className="form-control gap-5 flex items-center justify-center text-white mt-8"
       onSubmit={handleSubmit}
     >
       <div className="flex justify-center flex-col items-center gap-5">

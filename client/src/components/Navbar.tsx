@@ -25,11 +25,11 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar bg-primary text-white">
+    <div className="navbar bg-primary text-white sticky top-0 ">
       <div className="flex-1">
         <a className="cursor-pointer text-start font-extrabold text-xl flex justify-center items-center gap-1">
           <BiLogoBlogger />
-          Blogify
+          <Link to="/home">Blogify</Link>
         </a>
       </div>
 

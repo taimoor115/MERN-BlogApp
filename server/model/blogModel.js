@@ -20,6 +20,28 @@ const blogSchema = new Schema(
 
     category: {
       type: String,
+      enum: [
+        "Software Development",
+        "Web Development",
+        "Mobile Development",
+        "AI & Machine Learning",
+        "Data Science",
+        "Cybersecurity",
+        "Freelancing",
+        "E-commerce",
+        "Finance & Investment",
+        "Self-Improvement",
+        "Productivity Tips",
+        "Travel",
+        "Fashion",
+        "Movie Reviews",
+        "Book Reviews",
+        "Music",
+        "Astronomy",
+        "Physics",
+        "Social Issues",
+        "Global Affairs",
+      ],
     },
     tags: {
       type: [String],

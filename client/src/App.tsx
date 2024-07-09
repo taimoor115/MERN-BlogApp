@@ -5,6 +5,7 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import { AuthProvider } from "./context/authContext/authContext";
 import Navbar from "./components/Navbar";
+import CreateBlog from "./pages/CreateBlog";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
         <Route path="/home" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/blogs/create" element={<CreateBlog />} />
       </Routes>
     </AuthProvider>
   );
