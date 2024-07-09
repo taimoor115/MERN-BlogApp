@@ -2,7 +2,7 @@ import Joi from "joi";
 
 export const blogValidator = Joi.object({
   title: Joi.string().required(),
-  image: Joi.string().allow(null, ""),
+  image: Joi.string().required(),
   content: Joi.string().required(),
   publishDate: Joi.date(),
   category: Joi.string(),

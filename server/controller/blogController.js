@@ -36,6 +36,8 @@ export const showBlog = async (req, res) => {
 export const createBlog = async (req, res) => {
   try {
     const blogData = req.body;
+
+    // console.log("Create blog", req.file);
     if (!req.user) {
       return res
         .status(401)
@@ -49,7 +51,16 @@ export const createBlog = async (req, res) => {
       blogData.image = uploadedResponse.secure_url;
     }
 
-    const blog = await Blog.create({ ...req.body, user: userId });
+    // const url = req.file.path;
+    // const filename = req.file.filename;
+
+    const blog = new Blog(blogData);
+    blog.user.push(userId);
+    // blog.image = url;
+
+    const savedBlog = await blog.save();
+    console.log("Create BLog", savedBlog);
+
     return res.status(201).json(blog);
   } catch (error) {
     console.log(error.message);

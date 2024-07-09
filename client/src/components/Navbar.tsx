@@ -27,10 +27,13 @@ const Navbar = () => {
   return (
     <div className="navbar bg-primary text-white sticky top-0 ">
       <div className="flex-1">
-        <a className="cursor-pointer text-start font-extrabold text-xl flex justify-center items-center gap-1">
+        <Link
+          to="/home"
+          className="cursor-pointer text-start font-extrabold text-xl flex justify-center items-center gap-1"
+        >
           <BiLogoBlogger />
-          <Link to="/home">Blogify</Link>
-        </a>
+          <p>Blogify</p>
+        </Link>
       </div>
 
       <div className="flex-none">

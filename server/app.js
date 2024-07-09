@@ -1,18 +1,18 @@
 import express from "express";
 import { MongoURL, PORT } from "./config.js";
 import mongoose from "mongoose";
+import { v2 as cloudinary } from "cloudinary";
 import ExpressError from "./ExpressError.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import blogRoutes from "./routes/blogRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import "dotenv/config";
-import { v2 as cloudinary } from "cloudinary";
 
 const app = express();
 
 // Middleware
-app.use(express.json());
+app.use(express.json({ limit: "50mb" }));
 app.use(cookieParser());
 
 cloudinary.config({
