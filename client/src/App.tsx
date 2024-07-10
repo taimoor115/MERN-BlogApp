@@ -6,6 +6,10 @@ import Login from "./pages/Login";
 import { AuthProvider } from "./context/authContext/authContext";
 import Navbar from "./components/Navbar";
 import CreateBlog from "./pages/CreateBlog";
+import axios from "axios";
+
+axios.defaults.baseURL = "http://localhost:3000";
+axios.defaults.withCredentials = true;
 
 const App = () => {
   return (

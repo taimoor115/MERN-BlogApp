@@ -5,8 +5,10 @@ import { BiUserCircle } from "react-icons/bi";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useAuth } from "../context/authContext/authContext";
 
 const Signup = () => {
+  const { setIsLoggedIn } = useAuth();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
@@ -18,12 +20,14 @@ const Signup = () => {
     e.preventDefault();
     console.log(formData);
     await axios
-      .post("http://localhost:3000/signup", formData, { withCredentials: true })
+      .post("/signup", formData, { withCredentials: true })
       .then(() => {
         toast.success("You have register successfully...");
+        setIsLoggedIn(true);
         navigate("/home");
       })
       .catch((err) => {
+        setIsLoggedIn(false);
         console.log(err.response.data);
         toast.error(err.response.data.error);
       });

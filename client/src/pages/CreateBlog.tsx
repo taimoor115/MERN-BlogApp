@@ -3,8 +3,6 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-axios.defaults.baseURL = "http://localhost:3000"; // Your backend API base URL
-
 interface FormData {
   title: string;
   image: string | ArrayBuffer | null;

@@ -17,7 +17,7 @@ const Login = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     axios
-      .post("http://localhost:3000/login", formData, {
+      .post("/login", formData, {
         withCredentials: true,
       })
       .then(() => {

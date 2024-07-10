@@ -25,7 +25,7 @@ const Home = () => {
   useEffect(() => {
     setIsLoading(true);
     axios
-      .get("http://localhost:3000/blogs")
+      .get("/blogs")
       .then((res) => {
         console.log(res.data);
         setIsLoading(false);
