@@ -47,7 +47,12 @@ export const createBlog = async (req, res) => {
     const userId = req.user._id.toString();
 
     if (blogData.image) {
-      const uploadedResponse = await cloudinary.uploader.upload(blogData.image);
+      const uploadedResponse = await cloudinary.uploader.upload(
+        blogData.image,
+        {
+          folder: "blogs",
+        }
+      );
       blogData.image = uploadedResponse.secure_url;
     }
 
