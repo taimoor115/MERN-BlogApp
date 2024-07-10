@@ -3,10 +3,11 @@ import { ReactNode } from "react";
 export interface User {
   _id: string;
   username: string;
+  createdAt: string;
 }
 
 export interface AuthContextProps {
-  user: User | [];
+  user: User | undefined;
   isLoggedIn: boolean;
   isLoading: boolean;
   logout: () => void;

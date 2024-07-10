@@ -2,7 +2,9 @@ import Blog from "../model/blogModel.js";
 import { v2 as cloudinary } from "cloudinary";
 export const getBlogs = async (req, res) => {
   try {
-    const blogs = await Blog.find({});
+    const blogs = await Blog.find({}).populate("user");
+
+    console.log("Get Blogs ", blogs);
 
     if (!blogs) {
       return res.status(500).json({
@@ -37,7 +39,6 @@ export const createBlog = async (req, res) => {
   try {
     const blogData = req.body;
 
-    // console.log("Create blog", req.file);
     if (!req.user) {
       return res
         .status(401)
@@ -56,12 +57,8 @@ export const createBlog = async (req, res) => {
       blogData.image = uploadedResponse.secure_url;
     }
 
-    // const url = req.file.path;
-    // const filename = req.file.filename;
-
     const blog = new Blog(blogData);
     blog.user.push(userId);
-    // blog.image = url;
 
     const savedBlog = await blog.save();
     console.log("Create BLog", savedBlog);

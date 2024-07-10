@@ -2,12 +2,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/authContext/authContext";
 import { GrDrawer } from "react-icons/gr";
 import { BiLogoBlogger } from "react-icons/bi";
+import { BiPlus } from "react-icons/bi";
+
 const Navbar = () => {
   const navigate = useNavigate();
   const { isLoggedIn, logout } = useAuth();
-
-  // console.log(isLoggedIn);
-  console.log(isLoggedIn);
 
   const handleLogout = async () => {
     try {
@@ -17,6 +16,7 @@ const Navbar = () => {
       console.log(err);
     }
   };
+
   const handleClick = () => {
     const details = document.querySelector("details[open]");
     if (details) {
@@ -25,21 +25,28 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar bg-primary text-white sticky top-0 ">
+    <div className="navbar bg-primary text-white h-[80px] sticky top-0 z-50">
       <div className="flex-1">
         <Link
           to="/home"
-          className="cursor-pointer text-start font-extrabold text-xl flex justify-center items-center gap-1"
+          className="cursor-pointer text-start p-3 font-extrabold text-xl flex justify-center items-center gap-1"
         >
           <BiLogoBlogger />
           <p>Blogify</p>
         </Link>
+
+        {isLoggedIn && (
+          <Link
+            to="/blogs/create"
+            className="text-sm lg:text-xl md:text-xl font-bold flex items-center  "
+          >
+            <p>Create Blog</p>
+            <BiPlus className="text-2xl ms-0" />
+          </Link>
+        )}
       </div>
 
       <div className="flex-none">
-        {/* <button className="btn btn-ghost" onClick={handleLogout}>
-          Logout
-        </button> */}
         <ul className="menu menu-horizontal me-5 text-white font-bold">
           <li>
             <details>

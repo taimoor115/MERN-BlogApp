@@ -11,7 +11,7 @@ export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState<User | []>([]);
+  const [user, setUser] = useState<User>();
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
