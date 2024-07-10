@@ -4,15 +4,7 @@ import { contentShorter } from "../utils/contentShorter";
 import { Link } from "react-router-dom";
 import Skeleton from "../components/Skeleton";
 import { useAuth } from "../context/authContext/authContext";
-
-interface Blogs {
-  _id: string;
-  title: string;
-  image: string;
-  content: string;
-  category: string;
-  tags: string;
-}
+import { Blogs } from "../types/types";
 
 const Home = () => {
   const [blogs, setBlogs] = useState<Blogs[] | []>([]);
@@ -67,7 +59,7 @@ const Home = () => {
               <p className="text-gray-400">{contentShorter(blog.content)}</p>
               <div className="flex justify-between space-x-7">
                 <p>{user?.username}</p>
-                <p>{user?.createdAt.toString().slice(0, 10)}</p>
+                <p>{blog?.createdAt.toString().slice(0, 10)}</p>
               </div>
             </div>
           </div>

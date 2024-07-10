@@ -7,6 +7,7 @@ import { AuthProvider } from "./context/authContext/authContext";
 import Navbar from "./components/Navbar";
 import CreateBlog from "./pages/CreateBlog";
 import axios from "axios";
+import Read from "./pages/Read";
 
 axios.defaults.baseURL = "http://localhost:3000";
 axios.defaults.withCredentials = true;
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/blogs/create" element={<CreateBlog />} />
+        <Route path="/blogs/show/:id" element={<Read />} />
       </Routes>
     </AuthProvider>
   );
