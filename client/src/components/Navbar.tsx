@@ -25,10 +25,10 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar bg-primary text-white h-[80px] sticky top-0 z-50">
+    <div className="navbar bg-primary text-white h-[20px]  sticky top-0 z-50">
       <div className="flex-1">
         <Link
-          to="/home"
+          to="/"
           className="cursor-pointer text-start p-3 font-extrabold text-xl flex justify-center items-center gap-1"
         >
           <BiLogoBlogger />

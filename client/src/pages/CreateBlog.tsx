@@ -3,7 +3,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-interface FormData {
+export interface FormData {
   title: string;
   image: string | ArrayBuffer | null;
   content: string;

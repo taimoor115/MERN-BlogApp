@@ -14,8 +14,7 @@ router.route("/").get(getBlogs).post(protectedRoute, validateBlog, createBlog);
 router
   .route("/:id")
   .get(showBlog)
-  .put(protectedRoute, validateBlog, updateBlog)
-  .delete(protectedRoute, destroyBlog);
+  .patch(protectedRoute, validateBlog, updateBlog);
 
 router;
 

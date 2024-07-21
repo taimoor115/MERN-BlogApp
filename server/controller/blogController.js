@@ -78,7 +78,7 @@ export const updateBlog = async (req, res) => {
     if (!req.user) {
       return res
         .status(401)
-        .json({ error: "You must be logged in to create a blog..." });
+        .json({ error: "You must be logged in to edit a blog..." });
     }
 
     const result = await Blog.findByIdAndUpdate(id, blog, {
@@ -89,7 +89,7 @@ export const updateBlog = async (req, res) => {
     if (!result) {
       return res.status(404).json({ error: "Blog not found" });
     }
-    return res.status(200).json(result);
+    return res.status(200).json({ message: "Blog updated successfully..." });
   } catch (error) {
     console.log(error.message);
     return res.json({ error: error.message });

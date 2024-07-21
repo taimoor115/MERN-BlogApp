@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import { ShowBlog } from "../types/types";
 
@@ -24,7 +24,7 @@ const Read = () => {
   return (
     <div className="flex flex-col justify-center items-center  text-white">
       <div className="text-center">
-        <h1 className="font-extrabold text-[80px] mt-5 "> {blog?.title}</h1>
+        <h1 className="font-extrabold text-[50px] mt-5 "> {blog?.title}</h1>
         <div className="flex justify-center space-x-8 mt-4 text-gray-300 font-bold">
           <p>
             {blog?.user.map((user) =>
@@ -44,17 +44,20 @@ const Read = () => {
           />
         </div>
 
-        <p className="text-white text-start p-20"> {blog?.content}</p>
-        <div className="text-start font-bold p-20">
+        <p className="text-white text-start p-10"> {blog?.content}</p>
+        <div className="text-start font-bold p-10">
           Category: {blog?.category}
           {blog?.tags.map((tag) => (
             <p className="text-blue-500 hover:text-blue-300"> #{tag}</p>
           ))}
-          <p>{blog?.user.map((user) => user.email)}</p>
+          <p>Author:{blog?.user.map((user) => user.email)}</p>
         </div>
 
         <div>
-          <button className="btn btn-primary btn-wide">Edit</button>
+          <Link to={`/blogs/edit/${blog?._id}`}>
+            <button className="btn btn-primary">Edit</button>
+          </Link>
+          <button className="btn bg-red-600">Delete</button>
         </div>
       </div>
     </div>
